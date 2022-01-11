@@ -42,3 +42,7 @@ def main():
  asyncio.run(main())
 
 ```
+
+# Upcoming/Planned:
+* Converting the core.User object to a discord.User() so it has more features  
+* Handle Vanity URLs (/user/ZeroTwo36 to /user/899722893603274793 for example)  
