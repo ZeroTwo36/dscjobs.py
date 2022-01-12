@@ -43,6 +43,25 @@ def main():
 
 ```
 
+## Now there's an API Client Class!
+
+```py
+from dscjobs import ClientSession, fetchUser
+
+client= ClientSession()
+
+@client.once
+async def main():
+  myself = 899722893603274793
+  user = await fetchUser(myself)
+  print(f"Premium: {user.premium}\nStaff: {user.staff}")
+  exit()
+
+client.run()
+```
+Those ClientSessions make your code a lot cleaner and use less imports. Also, soon there's gonna be more Features to it!
+
+
 # Upcoming/Planned:
 * Converting the core.User object to a discord.User() so it has more features  
 * Handle Vanity URLs (/user/ZeroTwo36 to /user/899722893603274793 for example)  
