@@ -1,6 +1,70 @@
 import datetime
+from typing import Iterable
 import aiohttp
+import asyncio
 from .exceptions import *
+
+class Session:
+    def __init__(self,**tmp):
+        self.session = tmp
+
+class ClientSession:
+    def __init__(self,**kwargs):
+        self.optnal = kwargs
+        self.onces = []
+        self.config = {}
+
+    async def _runner(self,function):
+        await function()
+        exit()
+
+    def once(self,coro):
+        """Execute a new Coroutine. Use this instead of asyncio.run()ing a function
+
+        Args:
+            coro (asyncio.Coroutine)
+
+        Raises:
+            MalformedRequest
+            UserNotFound
+            NoReviewAvailable
+
+        Returns:
+            once.handle()
+        """
+        self.config['MAIN_COROUTINE'] = coro
+        def handle(func):
+            return 0
+
+        return handle
+
+    def run(self):
+        if 'MAIN_COROUTINE' in self.config:
+            func = self.config['MAIN_COROUTINE']
+            loop = asyncio.new_event_loop()
+            loop.run_until_complete(self._runner(func))
+            
+            exit()
+        else:
+            raise DSCJobsBaseException("No ClientSession.config['MAIN_COROUTINE'] was set. Use @ClientSession.once instead.")
+
+    def get(self,iter:Iterable,**params):
+        """Scrape an Iterable with filters
+
+        Args:
+            iter (Iterable)
+
+        Raises:
+            MalformedRequest: [description]
+            UserNotFound: [description]
+            UserNotFound: [description]
+            NoReviewAvailable: [description]
+
+        Returns:
+            Any@Any
+        """
+        id = params['id']
+        return (i for i in iter if i.id == id)
 
 class Review:
     def __init__(self,user,content,likes,dislikes,reports,replies,rate,date):
