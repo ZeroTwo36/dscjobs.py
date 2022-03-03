@@ -48,23 +48,26 @@ class ClientSession:
         else:
             raise DSCJobsBaseException("No ClientSession.config['MAIN_COROUTINE'] was set. Use @ClientSession.once instead.")
 
-    def get(self,iter:Iterable,**params):
-        """Scrape an Iterable with filters
-
-        Args:
-            iter (Iterable)
-
-        Raises:
-            MalformedRequest: [description]
-            UserNotFound: [description]
-            UserNotFound: [description]
-            NoReviewAvailable: [description]
-
-        Returns:
-            Any@Any
+    def find(self,predicate,seq:Iterable):
+        """A helper to return the first element found in the sequence
+        that meets the predicate. For example: ::
+            member = dscjobs.utils.find(lambda m: m.id == 899722893603274793, PeopleThatVotedForMe)
+        would find the first :class:`~dscjobs.User` whose ID is 899722893603274793 and return it.
+        If an entry is not found, then ``None`` is returned.
+        This is different from :func:`py:filter` due to the fact it stops the moment it finds
+        a valid entry.
+        Parameters
+        -----------
+        predicate
+            A function that returns a boolean-like result.
+        seq: :class:`typing.Iterable`
+            The iterable to search through.
+        
         """
-        id = params['id']
-        return (i for i in iter if i.id == id)
+        for item in seq:
+            if predicate(item):
+                return item
+        return None
 
 class Review:
     def __init__(self,user,content,likes,dislikes,reports,replies,rate,date):
