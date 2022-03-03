@@ -51,7 +51,7 @@ class ClientSession:
     def find(self,predicate,seq:Iterable):
         """A helper to return the first element found in the sequence
         that meets the predicate. For example: ::
-            member = dscjobs.utils.find(lambda m: m.id == 899722893603274793, PeopleThatVotedForMe)
+            member = ClientSession.find(lambda m: m.id == 899722893603274793, PeopleThatVotedForMe)
         would find the first :class:`~dscjobs.User` whose ID is 899722893603274793 and return it.
         If an entry is not found, then ``None`` is returned.
         This is different from :func:`py:filter` due to the fact it stops the moment it finds
@@ -59,7 +59,7 @@ class ClientSession:
         Parameters
         -----------
         predicate
-            A function that returns a boolean-like result.
+            A function that returns a boolean-like result. (e.G. lambda m: m.id==899722893603274793)
         seq: :class:`typing.Iterable`
             The iterable to search through.
         

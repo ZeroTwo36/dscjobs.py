@@ -61,7 +61,3 @@ client.run()
 ```
 Those ClientSessions make your code a lot cleaner and use less imports. Also, soon there's gonna be more Features to it!
 
-
-# Upcoming/Planned:
-* Converting the core.User object to a discord.User() so it has more features  
-* Handle Vanity URLs (/user/ZeroTwo36 to /user/899722893603274793 for example)  
