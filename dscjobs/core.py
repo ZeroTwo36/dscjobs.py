@@ -58,6 +58,16 @@ def fetchReview(review_id):
         rev._review_id = data['_id']
         return rev
 
+class DSCJobsAPIResponse(object): 
+    def __init__(self, **kwargs):
+        
+        for k in list(kwargs.keys()):
+            self.__setattr__(k,kwargs.get(k))
+
+def getendpoint(endpoint):
+    r = requests.get(f"https://api.dscjobs.org/{endpoint}")
+    r.raise_for_status()
+    return DSCJobsAPIResponse(**r.json())
 
 def fetchUser(userid,**context):
     """
